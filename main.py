@@ -42,7 +42,7 @@ if st.button("作成！"):
         # メッセージをデータベースに保存
     c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
     conn.commit()
-        st.success('メッセージが保存されました。')
+    st.success('メッセージが保存されました。')
 
 # データベースから全てのメッセージを取得
 c.execute("SELECT * FROM messages")
