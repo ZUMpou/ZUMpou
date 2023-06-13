@@ -38,7 +38,6 @@ content = st.text_area("内容")
 if st.button("作成！"):
     create_post(title, content)
     st.success("作成完了！")
-    message:
         # メッセージをデータベースに保存
     c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
     conn.commit()
