@@ -9,8 +9,9 @@ c = conn.cursor()
 # ↑データベース接続
 
 # テーブル作成（存在しない場合）
-c.execute('''CREATE TABLE IF NOT EXISTS messages
-             (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)''')
+if   c.execute('''CREATE TABLE IF NOT EXISTS messages
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)'''):
+    else 
 
 st.text("ヤッハロー")
 #         ↑ガハマすこ
