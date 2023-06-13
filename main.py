@@ -38,14 +38,12 @@ content = st.text_area("内容")
 if st.button("作成！"):
     create_post(title, content)
     st.success("作成完了！")
-
-    # 送信ボタンがクリックされたときの処理
-if st.button('作成！'):
-    if message:
+ # 送信ボタンがクリックされたときの処理
+    message:
         # メッセージをデータベースに保存
-        c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
-        conn.commit()
-        st.success('メッセージが保存されました。')
+    c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
+    conn.commit()
+    st.success('メッセージが保存されました。')
 
 # データベースから全てのメッセージを取得
 c.execute("SELECT * FROM messages")
