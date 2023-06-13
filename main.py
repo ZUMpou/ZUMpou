@@ -40,7 +40,7 @@ if st.button("作成！"):
     create_post(title, content)
     st.success("作成完了！")
         # メッセージをデータベースに保存
-    c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
+    c.execute()
     conn.commit()
     st.success('メッセージが保存されました。')
 
