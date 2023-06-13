@@ -6,9 +6,7 @@ import sqlite3
 conn = sqlite3.connect('messages.db')
 c = conn.cursor()
 
-# データベース接続
-conn = sqlite3.connect('messages.db')
-c = conn.cursor()
+# ↑データベース接続
 
 # テーブル作成（存在しない場合）
 c.execute('''CREATE TABLE IF NOT EXISTS messages
