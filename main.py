@@ -58,3 +58,34 @@ if len(posts) == 0:
     st.info("まだ投稿はありません")
 else:
     show_posts()
+
+    import streamlit as st
+import pandas as pd
+
+# メッセージを保存するデータフレーム
+messages_df = pd.DataFrame(columns=['User', 'Message'])
+
+def main():
+    st.title("掲示板アプリ")
+
+    # 新しいメッセージの入力
+    user = st.text_input("ユーザー名")
+    message = st.text_area("メッセージ")
+
+    # 送信ボタンがクリックされた場合
+    if st.button("送信"):
+        if user and message:
+            add_message(user, message)
+            st.success("メッセージが追加されました！")
+
+    # 保存されたメッセージの表示
+    if not messages_df.empty:
+        st.subheader("保存されたメッセージ")
+        st.dataframe(messages_df)
+
+def add_message(user, message):
+    # メッセージをデータフレームに追加
+    messages_df.loc[len(messages_df)] = [user, message]
+
+if __name__ == '__main__':
+    main()
