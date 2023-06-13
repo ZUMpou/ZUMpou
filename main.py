@@ -8,11 +8,6 @@ c = conn.cursor()
 
 # ↑データベース接続
 
-# テーブル作成（存在しない場合）
-if   c.execute('''CREATE TABLE IF NOT EXISTS messages
-             (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)'''):
-    else 
-
 st.text("ヤッハロー")
 #         ↑ガハマすこ
 
@@ -41,7 +36,6 @@ if st.button("作成！"):
     create_post(title, content)
     st.success("作成完了！")
         # メッセージをデータベースに保存
-    c.execute()
     conn.commit()
     st.success('メッセージが保存されました。')
 
