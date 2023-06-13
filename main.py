@@ -1,7 +1,37 @@
 import math
 import streamlit as st
 import pandas as pd
+import sqlite3
 
+# SQLiteデータベースに接続
+conn = sqlite3.connect('data.db')
+c = conn.cursor()
+
+# テーブルの作成（初回のみ実行）
+c.execute('''CREATE TABLE IF NOT EXISTS messages
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)''')
+conn.commit()
+
+# Streamlitアプリケーションの設定
+st.title("メッセージの保存")
+
+# 入力フォームの表示
+message = st.text_input("メッセージを入力してください")
+
+# メッセージをデータベースに保存
+if st.button("保存"):
+    c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
+    conn.commit()
+    st.success("メッセージが保存されました")
+
+# データベースからメッセージを取得して表示
+c.execute("SELECT * FROM messages")
+result = c.fetchall()
+for row in result:
+    st.write(row[1])
+
+# データベースの接続をクローズ
+conn.close()
 
 
 st.text("ヤッハロー")
