@@ -12,16 +12,6 @@ c.execute('''CREATE TABLE IF NOT EXISTS messages
              (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)''')
 conn.commit()
 
-# Streamlitアプリケーションの設定
-st.title("メッセージの保存")
-
-
-# メッセージをデータベースに保存
-if st.button("保存"):
-    c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
-    conn.commit()
-    st.success("メッセージが保存されました")
-
 # データベースからメッセージを取得して表示
 c.execute("SELECT * FROM messages")
 result = c.fetchall()
@@ -66,7 +56,7 @@ if len(posts) == 0:
     st.info("まだ投稿はありません")
 else:
     show_posts()
-    
+
 if st.button("保存"):
     c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
     conn.commit()
@@ -80,3 +70,9 @@ for row in result:
 
 # データベースの接続をクローズ
 conn.close()
+
+# メッセージをデータベースに保存
+if st.button("保存"):
+    c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
+    conn.commit()
+    st.success("メッセージが保存されました")
