@@ -38,12 +38,12 @@ content = st.text_area("内容")
 if st.button("作成！"):
     create_post(title, content)
     st.success("作成完了！")
- # 送信ボタンがクリックされたときの処理
+ 
     message:
         # メッセージをデータベースに保存
     c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
     conn.commit()
-    st.success('メッセージが保存されました。')
+        st.success('メッセージが保存されました。')
 
 # データベースから全てのメッセージを取得
 c.execute("SELECT * FROM messages")
@@ -56,6 +56,14 @@ for row in all_messages:
 
 # データベース接続をクローズ
 conn.close()
+このコードでは、messages.dbという名前のSQLiteデータベースファイルを作成し、messagesというテーブルを作成してメッセージを保存します。Streamlitアプリケーション内で、入力フォームからメッセージを入力し、「送信」ボタンを押すことで、メッセージがデータベースに保存されます。また、保存されたメッセージはアプリケーション上で表示されます。
+
+
+
+
+
+
+
 
 # 投稿一覧の表示
 st.header("スレタイトル一覧")
