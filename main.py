@@ -3,6 +3,9 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 
+conn = sqlite3.connect('messages.db')
+c = conn.cursor()
+
 # データベース接続
 conn = sqlite3.connect('messages.db')
 c = conn.cursor()
