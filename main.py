@@ -15,8 +15,6 @@ conn.commit()
 # Streamlitアプリケーションの設定
 st.title("メッセージの保存")
 
-# 入力フォームの表示
-message = st.text_input("メッセージを入力してください")
 
 # メッセージをデータベースに保存
 if st.button("保存"):
@@ -68,3 +66,17 @@ if len(posts) == 0:
     st.info("まだ投稿はありません")
 else:
     show_posts()
+    
+if st.button("保存"):
+    c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
+    conn.commit()
+    st.success("メッセージが保存されました")
+
+# データベースからメッセージを取得して表示
+c.execute("SELECT * FROM messages")
+result = c.fetchall()
+for row in result:
+    st.write(row[1])
+
+# データベースの接続をクローズ
+conn.close()
