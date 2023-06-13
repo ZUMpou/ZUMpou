@@ -2,17 +2,6 @@ import math
 import streamlit as st
 import pandas as pd
 
-import streamlit as st
-
-def main():
-    # テキストボックスを表示し、入力されたテキストを取得する
-    input_text = st.text_input("テキスト入力")
-
-    # 入力されたテキストを表示する
-    st.write("入力されたテキスト:", input_text)
-
-if __name__ == '__main__':
-    main()
 
 
 st.text("ヤッハロー")
