@@ -3,24 +3,13 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 
-# SQLiteデータベースに接続
-conn = sqlite3.connect('data.db')
+# データベース接続
+conn = sqlite3.connect('messages.db')
 c = conn.cursor()
 
-# テーブルの作成（初回のみ実行）
+# テーブル作成（存在しない場合）
 c.execute('''CREATE TABLE IF NOT EXISTS messages
-             (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)''')
-conn.commit()
-
-# データベースからメッセージを取得して表示
-c.execute("SELECT * FROM messages")
-result = c.fetchall()
-for row in result:
-    st.write(row[1])
-
-# データベースの接続をクローズ
-conn.close()
-
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)''')
 
 st.text("ヤッハロー")
 #         ↑ガハマすこ
@@ -50,29 +39,29 @@ if st.button("作成！"):
     create_post(title, content)
     st.success("作成完了！")
 
+    # 送信ボタンがクリックされたときの処理
+if st.button('作成！'):
+    if message:
+        # メッセージをデータベースに保存
+        c.execute("INSERT INTO messages (content) VALUES (?)", (message,))
+        conn.commit()
+        st.success('メッセージが保存されました。')
+
+# データベースから全てのメッセージを取得
+c.execute("SELECT * FROM messages")
+all_messages = c.fetchall()
+
+# メッセージの表示
+st.subheader('保存されたメッセージ')
+for row in all_messages:
+    st.write(row[1])
+
+# データベース接続をクローズ
+conn.close()
+
 # 投稿一覧の表示
 st.header("スレタイトル一覧")
 if len(posts) == 0:
     st.info("まだ投稿はありません")
 else:
     show_posts()
-
-if st.button("保存"):
-    c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
-    conn.commit()
-    st.success("メッセージが保存されました")
-
-# データベースからメッセージを取得して表示
-c.execute("SELECT * FROM messages")
-result = c.fetchall()
-for row in result:
-    st.write(row[1])
-
-# データベースの接続をクローズ
-conn.close()
-
-# メッセージをデータベースに保存
-if st.button("保存"):
-    c.execute("INSERT INTO messages (message) VALUES (?)", (message,))
-    conn.commit()
-    st.success("メッセージが保存されました")
