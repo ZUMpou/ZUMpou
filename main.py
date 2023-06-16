@@ -1,91 +1,56 @@
-import math
 import streamlit as st
-import pandas as pd
-import sqlite3
+import json
 
-conn = sqlite3.connect('messages.db')
-c = conn.cursor()
+# 禁止ワードのリスト
+banned_words = ["馬鹿", "禁止ワード2", "禁止ワード3"]
 
-# ↑データベース接続
+# ユーザーの投稿内容をチェックする関数
+def check_post_content(title, content):
+    # タイトルと投稿内容の禁止ワードの検出
+    for banned_word in banned_words:
+        if banned_word in title:
+            title = title.replace(banned_word, "＠" * len(banned_word))
+        if banned_word in content:
+            content = content.replace(banned_word, "＠" * len(banned_word))
+    return title, content
 
-st.text("ヤッハロー")
-#         ↑ガハマすこ
+def save_post(title, content):
+    post = {"title": title, "content": content}
+    with open('posts.json', 'a') as file:
+        json.dump(post, file)
+        file.write('\n')
 
-# 投稿データを保持するリスト
-posts = []
-
-# 投稿の作成
-def create_post(title, content):
-    posts.append({"title": title, "content": content})
-
-# 投稿の表示
-def show_posts():
-    for post in posts:
-        st.write(f"**{post['title']}**")
-        st.write(post['content'])
-        st.write('---')
-
-# 掲示板アプリのタイトル
-st.title("舞チャン")
-
-# 新しい投稿の作成
-st.header("新しい投稿を作成")
-title = st.text_input("スレタイトル")
-content = st.text_area("内容")
-if st.button("作成！"):
-    create_post(title, content)
-    st.success("作成完了！")
-        # メッセージをデータベースに保存
-    conn.commit()
-    st.success('メッセージが保存されました。')
-
-# データベースから全てのメッセージを取得
-c.execute("SELECT * FROM messages")
-all_messages = c.fetchall()
-
-# メッセージの表示
-st.subheader('保存されたメッセージ')
-for row in all_messages:
-    st.write(row[1])
-
-# データベース接続をクローズ
-conn.close()
-
-
-# 投稿一覧の表示
-st.header("スレタイトル一覧")
-if len(posts) == 0:
-    st.info("まだ投稿はありません")
-else:
-    show_posts()
-
-    import streamlit as st
-import pandas as pd
-
-# メッセージを保存するデータフレーム
-messages_df = pd.DataFrame(columns=['User', 'Message'])
+def load_posts():
+    with open('posts.json', 'r') as file:
+        return [json.loads(line) for line in file]
 
 def main():
     st.title("掲示板アプリ")
 
-    # 新しいメッセージの入力
-    user = st.text_input("ユーザー名")
-    message = st.text_area("メッセージ")
+    # 新規投稿の入力
+    new_post_title = st.text_input("タイトル")
+    new_post_content = st.text_area("新規投稿", height=100)
 
-    # 送信ボタンがクリックされた場合
-    if st.button("送信"):
-        if user and message:
-            add_message(user, message)
-            st.success("メッセージが追加されました！")
+    # 投稿ボタンが押された場合
+    if st.button("投稿する") and new_post_title and new_post_content:
+        new_post_title, new_post_content = check_post_content(new_post_title, new_post_content)
+        if "＠" in new_post_title or "＠" in new_post_content:
+            st.warning("禁止ワードが含まれています！")
 
-    # 保存されたメッセージの表示
-    if not messages_df.empty:
-        st.subheader("保存されたメッセージ")
-        st.dataframe(messages_df)
+        save_post(new_post_title, new_post_content)
+        st.success("投稿が保存されました！")
 
-def add_message(user, message):
-    # メッセージをデータフレームに追加
-    messages_df.loc[len(messages_df)] = [user, message]
+    # 保存された投稿の表示
+    posts = load_posts()
+    st.subheader("保存された投稿")
 
-if __name__ == '__main__':
+    if not posts:
+        st.info("まだ投稿がありません。")
+    else:
+        for post in posts:
+            st.text(post["title"])
+            st.text(post["content"])
+            st.markdown("---")
+
+if __name__ == "__main__":
     main()
