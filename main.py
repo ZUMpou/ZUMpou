@@ -44,7 +44,7 @@ def main():
         now = datetime.now()
 
         # 時刻の表示
-        st.write("投稿時刻:", now)
+        print("投稿時刻:", now)
 
     # 保存された投稿の表示
     posts = load_posts()
