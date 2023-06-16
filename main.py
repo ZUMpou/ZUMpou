@@ -1,6 +1,9 @@
 import streamlit as st
 import json
 
+pip install requests
+
+
 # 禁止ワードのリスト
 banned_words = ["馬鹿", "禁止ワード2", "禁止ワード3"]
 
@@ -39,6 +42,12 @@ def main():
 
         save_post(new_post_title, new_post_content)
         st.success("投稿が保存されました！")
+
+        # 現在の時刻を取得
+        now = datetime.now()
+
+        # 時刻の表示
+        st.write("投稿時刻:", now)
 
     # 保存された投稿の表示
     posts = load_posts()
