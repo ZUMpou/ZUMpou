@@ -40,12 +40,6 @@ def main():
         save_post(new_post_title, new_post_content)
         st.success("投稿が保存されました！")
 
-# 現在の時刻を取得
-        now = datetime.now()
-
-# 時刻の表示
-        print("投稿時刻:", now)
-
     # 保存された投稿の表示
     posts = load_posts()
     st.subheader("保存された投稿")
