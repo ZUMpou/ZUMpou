@@ -1,41 +1,15 @@
 import streamlit as st
-import json
+import pandas as pd
 
-def save_post(title, content):
-    post = {"title": title, "content": content}
-    with open('posts.json', 'a') as file:
-        json.dump(post, file)
-        file.write('\n')
+st.title('掲示板アプリ')
 
-def load_posts():
-    with open('posts.json', 'r') as file:
-        return [json.loads(line) for line in file]
+messages = pd.DataFrame({'ユーザー': ['ユーザーA', 'ユーザーB'], 'メッセージ': ['こんにちは！', 'Streamlit楽しいですね！']})
 
-def main():
-    st.title("掲示板アプリ")
+st.table(messages)
 
-    # 新規投稿の入力
-    new_post_title = st.text_input("タイトル")
-    new_post_content = st.text_area("新規投稿", height=100)
+new_message = st.text_input('新しいメッセージを入力してください')
+submit_button = st.button('送信')
 
-    # 投稿ボタンが押された場合
-    if st.button("投稿する") and new_post_title and new_post_content:
-        new_post_title, new_post_content = check_post_content(new_post_title, new_post_content)
-        
-        save_post(new_post_title, new_post_content)
-        st.success("投稿が保存されました！")
-
-    # 保存された投稿の表示
-    posts = load_posts()
-    st.subheader("保存された投稿")
-
-    if not posts:
-        st.info("まだ投稿がありません。")
-    else:
-        for post in posts:
-            st.text(post["title"])
-            st.text(post["content"])
-            st.markdown("---")
-
-if __name__ == "__main__":
-    main()
+if submit_button:
+    messages = messages.append({'ユーザー': '新規投稿', 'メッセージ': new_message}, ignore_index=True)
+    st.table(messages)
