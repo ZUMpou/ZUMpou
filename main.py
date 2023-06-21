@@ -1,29 +1,6 @@
 import streamlit as st
 import json
 
-# 禁止ワードのリスト
-banned_words = ["馬鹿", "禁止ワード2", "禁止ワード3"]
-
-# ユーザーの投稿内容をチェックする関数
-def check_post_content(title, content):
-    # タイトルと投稿内容の禁止ワードの検出
-    for banned_word in banned_words:
-        if banned_word in title:
-            title = title.replace(banned_word, "＠" * len(banned_word))
-        if banned_word in content:
-            content = content.replace(banned_word, "＠" * len(banned_word))
-    return title, content
-
-def save_post(title, content):
-    post = {"title": title, "content": content}
-    with open('posts.json', 'a') as file:
-        json.dump(post, file)
-        file.write('\n')
-
-def load_posts():
-    with open('posts.json', 'r') as file:
-        return [json.loads(line) for line in file]
-
 def main():
     st.title("掲示板アプリ")
 
