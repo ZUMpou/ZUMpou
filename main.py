@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import datetime
 
-    if "＠" in new_post_title or "＠" in new_post_content:
+if "＠" in new_post_title or "＠" in new_post_content:
         st.warning("禁止ワードが含まれています！")
 
     save_post(new_post_title, new_post_content)
