@@ -11,10 +11,7 @@ def main():
     # 投稿ボタンが押された場合
     if st.button("投稿する") and new_post_title and new_post_content:
         new_post_title, new_post_content = check_post_content(new_post_title, new_post_content)
-        if "＠" in new_post_title or "＠" in new_post_content:
-            st.warning("禁止ワードが含まれています！")
-
-        save_post(new_post_title, new_post_content)
+    　  save_post(new_post_title, new_post_content)
         st.success("投稿が保存されました！")
 
     # 保存された投稿の表示
