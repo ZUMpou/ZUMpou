@@ -2,14 +2,6 @@ import streamlit as st
 import json
 import datetime
 
-def save_post(title, content):
-    post = {"title": title, "content": content, "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-    with open('posts.json', 'a') as file:
-        json.dump(post, file)
-        file.write('\n')
-
-# ...
-
 if st.button("投稿する") and new_post_title and new_post_content:
     new_post_title, new_post_content = check_post_content(new_post_title, new_post_content)
     if "＠" in new_post_title or "＠" in new_post_content:
