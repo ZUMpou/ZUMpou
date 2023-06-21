@@ -1,5 +1,24 @@
 import streamlit as st
 import json
+import datetime
+
+def save_post(title, content):
+    post = {"title": title, "content": content, "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+    with open('posts.json', 'a') as file:
+        json.dump(post, file)
+        file.write('\n')
+
+# ...
+
+if st.button("投稿する") and new_post_title and new_post_content:
+    new_post_title, new_post_content = check_post_content(new_post_title, new_post_content)
+    if "＠" in new_post_title or "＠" in new_post_content:
+        st.warning("禁止ワードが含まれています！")
+
+    save_post(new_post_title, new_post_content)
+    st.success("投稿が保存されました！")
+    st.write("投稿時間:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
 
 # 禁止ワードのリスト
 banned_words = ["馬鹿", "禁止ワード2", "禁止ワード3"]
