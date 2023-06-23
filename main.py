@@ -49,5 +49,5 @@ def main():
             st.text(post["content"])
             st.markdown("---")
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
     main()
