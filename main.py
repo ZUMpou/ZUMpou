@@ -8,7 +8,7 @@ if "＠" in new_post_title or "＠" in new_post_content:
         st.success("投稿が保存されました！")
         st.write("投稿時間:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # 禁止ワードのリスト
-banned_words = ["馬鹿", "禁止ワード2", "禁止ワード3"]
+        banned_words = ["馬鹿", "禁止ワード2", "禁止ワード3"]
 
 # ユーザーの投稿内容をチェックする関数
 def check_post_content(title, content):
