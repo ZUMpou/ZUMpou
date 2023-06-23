@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-
+st.print("dd")
 # ユーザーの投稿内容をチェックする関数
 def check_post_content(title, content):
     # タイトルと投稿内容の禁止ワードの検出
