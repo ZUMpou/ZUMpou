@@ -71,3 +71,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import streamlit as st
+
+# グットボタン
+if st.button('グットボタン'):
+    st.write('グットボタンがクリックされました!')
+
+# バットボタン
+if st.button('バットボタン'):
+    st.write('バットボタンがクリックされました!')
