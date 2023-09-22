@@ -66,3 +66,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# グットボタン
+if st.button('グットボタン'):
+    st.write('グットボタンがクリックされました!')
+
+# バットボタン
+if st.button('バットボタン'):
+    st.write('バットボタンがクリックされました!')
