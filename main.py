@@ -5,24 +5,6 @@ from datetime import datetime
 import pytz
 import urllib.parse
 
-# 禁止ワードのリスト
-# Excelファイルから読み込む
-def load_banned_words():
-    df = pd.read_excel("禁止ワード.xlsx")
-    return df['禁止用語'].tolist()
-
-banned_words = load_banned_words()
-
-# ユーザーの投稿内容をチェックする関数
-def check_post_content(title, content):
-    # タイトルと投稿内容の禁止ワードの検出
-    for banned_word in banned_words:
-        if banned_word in title:
-            title = title.replace(banned_word, "＠" * len(banned_word))
-        if banned_word in content:
-            content = content.replace(banned_word, "＠" * len(banned_word))
-    return title, content
-
 # 以下のコードは変更なし
 def save_post(title, content):
     now = datetime.now(pytz.timezone("Asia/Tokyo"))
