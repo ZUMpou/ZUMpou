@@ -85,7 +85,7 @@ def main():
             st.markdown("---")
 
             if uploaded_image is not None:
-        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+                st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
             
 
 
