@@ -84,5 +84,10 @@ def main():
             st.markdown(post_url, unsafe_allow_html=True)
             st.markdown("---")
 
+            if uploaded_image is not None:
+        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+            
+
+
 if __name__ == "__main__":
     main()
