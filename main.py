@@ -62,7 +62,8 @@ def main():
         save_post(new_post_title, new_post_content)
         st.success("投稿が保存されました！")
 
-        uploaded_image = st.file_uploader("写真をアップロードしてください", type=["jpg", "jpeg", "png"])
+    uploaded_image = st.file_uploader("写真をアップロードしてください", type=["jpg", "jpeg", "png"])
+
 
     # Process the uploaded image (save it, display it, etc.)
     if uploaded_image is not None:
